@@ -14,6 +14,8 @@ WARNING:
 
 -->
 
+**Note:** this is the "per-architecture" repository for the `i386` builds of [the `vault` official image](https://hub.docker.com/_/vault) -- for more information, see ["Architectures other than amd64?" in the official images documentation](https://github.com/docker-library/official-images#architectures-other-than-amd64) and ["An image's source changed in Git, now what?" in the official images FAQ](https://github.com/docker-library/faq#an-images-source-changed-in-git-now-what).
+
 # Quick reference
 
 -	**Maintained by**:  
@@ -28,6 +30,8 @@ WARNING:
 -	[`1.4.5`](https://github.com/hashicorp/docker-vault/blob/c8b15b04d73190e3016bb9627257be3e005d9b1b/0.X/Dockerfile)
 -	[`1.3.9`](https://github.com/hashicorp/docker-vault/blob/ebfb6f589fcec17cdf5e203f6351c041e599e1cf/0.X/Dockerfile)
 -	[`1.2.6`](https://github.com/hashicorp/docker-vault/blob/d521581cf771f886002d1c0ae0dcce4273e59a05/0.X/Dockerfile)
+
+[![i386/vault build status badge](https://img.shields.io/jenkins/s/https/doi-janky.infosiftr.net/job/multiarch/job/i386/job/vault.svg?label=i386/vault%20%20build%20job)](https://doi-janky.infosiftr.net/job/multiarch/job/i386/job/vault/)
 
 # Quick reference (cont.)
 
@@ -79,7 +83,7 @@ The container will attempt to lock memory to prevent sensitive values from being
 ## Running Vault for Development
 
 ```console
-$ docker run --cap-add=IPC_LOCK -d --name=dev-vault vault
+$ docker run --cap-add=IPC_LOCK -d --name=dev-vault i386/vault
 ```
 
 This runs a completely in-memory Vault server, which is useful for development but should not be used in production.
@@ -92,13 +96,13 @@ When running in development mode, two additional options can be set via environm
 As an example:
 
 ```console
-$ docker run --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:1234' vault
+$ docker run --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:1234' i386/vault
 ```
 
 ## Running Vault in Server Mode
 
 ```console
-$ docker run --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}' vault server
+$ docker run --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}' i386/vault server
 ```
 
 This runs a Vault server using the `file` storage backend at path `/vault/file`, with a default secret lease duration of one week and a maximum of 30 days.
